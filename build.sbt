@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.github.janjaali"
 
-ThisBuild / version := "1.0.0-RCS-0"
+ThisBuild / version := "1.0.0"
 
 ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")

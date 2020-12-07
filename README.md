@@ -7,7 +7,7 @@ SBT plugin that setup necessary, opinionated list of, scala compiler options for
 Add this plugin to your project:
 
 ```sbt
-addSbtPlugin("janjaali" % "scala-compiler-options" % "1.0.0")
+addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.0.0")
 ```
 
 ## Development

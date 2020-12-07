@@ -1,4 +1,4 @@
-package janjaali
+package com.github.janjaali.sbt.plugins
 
 import sbt.Keys.{scalaVersion, scalacOptions}
 import sbt.{AllRequirements, AutoPlugin, Def, PluginTrigger}

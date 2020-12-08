@@ -8,6 +8,24 @@ ThisBuild / licenses := Seq(
 
 ThisBuild / scalaVersion := "2.12.12"
 
+ThisBuild / homepage := Some(url("https://github.com/janjaali/scala-compiler-options"))
+
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/janjaali/scala-compiler-options"),
+    "scm:git@github.com:janjaali/scala-compiler-options.git"
+  )
+)
+
+ThisBuild / developers := List(
+  Developer(
+    id    = "janjaali",
+    name  = "janjaali",
+    email = "",
+    url   = url("http://github.com/janjaali")
+  )
+)
+
 ThisBuild / scalacOptions := Seq(
   "-deprecation",                      // Emit warning and location for usages of deprecated APIs.
   "-encoding", "utf-8",                // Specify character encoding used by source files.

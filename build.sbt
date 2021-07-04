@@ -1,5 +1,7 @@
 ThisBuild / organization := "com.github.janjaali"
 
+ThisBuild / versionScheme := Some("semver-spec")
+
 ThisBuild / version := "1.1.0"
 
 ThisBuild / licenses := Seq(

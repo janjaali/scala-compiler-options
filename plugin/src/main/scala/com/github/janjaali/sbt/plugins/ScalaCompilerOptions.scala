@@ -85,6 +85,11 @@ object ScalaCompilerOptions extends AutoPlugin {
   private val scala2134addedCompilerOptions = Seq(
     "-Xlint:strict-unsealed-patmat"      // Warn when a pattern match on an unsealed type may not be exhaustive
   )
+
+  private val scala2136addedCompilerOptions = Seq(
+    "-Vimplicits", // makes the compiler print implicit resolution chains when no implicit value can be found
+    "-Vtype-diffs" // turns type error messages (found: X, required: Y) into colored diffs between the two types
+  )
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -104,6 +109,13 @@ object ScalaCompilerOptions extends AutoPlugin {
             scala213Options.diff(
               scala2133removedCompilerOptions
             ) ++ scala2134addedCompilerOptions
+          } else if (scalaVersion.value == "2.13.6") {
+            scala213Options
+              .diff(
+                scala2133removedCompilerOptions
+              ) ++
+              scala2134addedCompilerOptions ++
+              scala2136addedCompilerOptions
           } else {
             scala213Options
           }

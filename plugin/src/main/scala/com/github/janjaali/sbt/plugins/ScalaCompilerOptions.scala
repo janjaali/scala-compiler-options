@@ -53,7 +53,7 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Ywarn-value-discard"               // Warn when non-Unit expression results are unused.
   )
 
-  private val scala213addedCompilerOptions = Seq(
+  private val scalaV2_13_0_addedCompilerOptions = Seq(
     "-Xlint:deprecation",                // Emit warning and location for usages of deprecated APIs.
     "-Wunused:imports",                  // Warn if an import selector is not referenced.
     "-Wdead-code",                       // Warn when dead code is identified.
@@ -67,7 +67,7 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Wvalue-discard"                    // Warn when non-Unit expression results are unused.
     )
 
-  private val scala213removedCompilerOptions = Seq(
+  private val scalaV2_13_0_removedCompilerOptions = Seq(
     "-deprecation",                      // https://github.com/scala/scala/pull/7714
     "-Yno-adapted-args",                 // https://github.com/scala/bug/issues/11110
     "-Xlint:by-name-right-associative",
@@ -78,18 +78,39 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Ywarn-nullary-unit"
   )
 
-  private val scala2133removedCompilerOptions = Seq(
+  private val scalaV2_13_0_compilerOptions = {
+    baseOptions
+      .diff(scalaV2_13_0_removedCompilerOptions)
+      .++(scalaV2_13_0_addedCompilerOptions)
+  }
+
+  private val scalaV2_13_3_removedCompilerOptions = Seq(
     "-Xlint:nullary-override"
   )
 
-  private val scala2134addedCompilerOptions = Seq(
+  private val scalaV2_13_3_compilerOptions = {
+    scalaV2_13_0_compilerOptions
+      .diff(scalaV2_13_3_removedCompilerOptions)
+  }
+
+  private val scalaV2_13_4_addedCompilerOptions = Seq(
     "-Xlint:strict-unsealed-patmat"      // Warn when a pattern match on an unsealed type may not be exhaustive
   )
 
-  private val scala2136addedCompilerOptions = Seq(
+  private val scalaV2_13_4_compilerOptions = {
+    scalaV2_13_3_compilerOptions
+      .++(scalaV2_13_4_addedCompilerOptions)
+  }
+
+  private val scalaV2_13_6_addedCompilerOptions = Seq(
     "-Vimplicits", // makes the compiler print implicit resolution chains when no implicit value can be found
     "-Vtype-diffs" // turns type error messages (found: X, required: Y) into colored diffs between the two types
   )
+
+  private val scalaV2_13_6_compilerOptions = {
+    scalaV2_13_4_compilerOptions
+      .++(scalaV2_13_6_addedCompilerOptions)
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -97,32 +118,30 @@ object ScalaCompilerOptions extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] = {
 
     Seq(
-      scalacOptions ++= (
-        if (scalaVersion.value.startsWith("2.13")) {
-          val scala213Options = baseOptions.diff(
-            scala213removedCompilerOptions
-          ) ++ scala213addedCompilerOptions
-
-          if (scalaVersion.value == "2.13.3") {
-            scala213Options.diff(scala2133removedCompilerOptions)
-          } else if (scalaVersion.value == "2.13.4") {
-            scala213Options.diff(
-              scala2133removedCompilerOptions
-            ) ++ scala2134addedCompilerOptions
-          } else if (scalaVersion.value == "2.13.6") {
-            scala213Options
-              .diff(
-                scala2133removedCompilerOptions
-              ) ++
-              scala2134addedCompilerOptions ++
-              scala2136addedCompilerOptions
-          } else {
-            scala213Options
-          }
-        } else { // probably 2.12.x
-          baseOptions
-        }
-      )
+      scalacOptions ++= compilerOptionsForScalaVersion(scalaVersion.value)
     )
+  }
+
+  private def compilerOptionsForScalaVersion(version: String): Seq[String] = {
+
+    version match {
+      case "2.13.6" =>
+        scalaV2_13_6_compilerOptions
+
+      case "2.13.4" | "2.13.5" =>
+        scalaV2_13_4_compilerOptions
+
+      case "2.13.3" =>
+        scalaV2_13_3_compilerOptions
+
+      case "2.13.0" | "2.13.1" | "2.13.2" =>
+        scalaV2_13_0_compilerOptions
+
+      case _ =>
+        println(
+          s"scala-compiler-options: Scala version '$version' not supported."
+        )
+        Nil
+    }
   }
 }

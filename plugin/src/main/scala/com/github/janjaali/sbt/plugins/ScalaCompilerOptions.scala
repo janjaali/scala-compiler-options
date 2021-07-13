@@ -180,7 +180,7 @@ object ScalaCompilerOptions extends AutoPlugin {
   private def compilerOptionsForScalaVersion(version: String): Seq[String] = {
 
     version match {
-      case "3.0.0" =>
+      case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
 
       case "2.13.6" =>

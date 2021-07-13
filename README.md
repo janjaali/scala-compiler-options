@@ -23,7 +23,15 @@ addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.1.0")
 
 ## Development
 
-This repository contains two basic test projects in [./test](./test), one for Scala 2.12.x and one for 2.13.x, that could be used to "live" test this plugin while developing.
+This repository contains two basic test projects in [./test](./test), one for Scala `2.12.x` and one for `2.13.x`, that could be used to "live" test this plugin while developing.
+
+### Organize Imports
+
+Organize imports by using [liancheng/scalafix-organize-imports](https://github.com/liancheng/scalafix-organize-imports):
+
+```shell
+sbt scalaFixAll
+```
 
 ## Publish
 

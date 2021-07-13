@@ -82,6 +82,13 @@ ThisBuild / credentials += publishSettings.credentials
 
 ThisBuild / publishTo := publishSettings.publishTo
 
+ThisBuild / scalafixDependencies += {
+  "com.github.liancheng" %% "organize-imports" % "0.5.0"
+}
+
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
+
 lazy val plugin = (project in file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(

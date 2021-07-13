@@ -7,7 +7,7 @@ SBT plugin that setup necessary, opinionated list of, scala compiler options for
 Add this plugin to your project:
 
 ```sbt
-addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.1.0")
+addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.2.0")
 ```
 
 ## Supported Scala versions
@@ -23,7 +23,7 @@ addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.1.0")
 
 ## Development
 
-This repository contains two basic test projects in [./test](./test), one for Scala `2.12.x` and one for `2.13.x`, that could be used to "live" test this plugin while developing.
+This repository contains test projects in [./test](./test), one for each Scala version. The test projects are used to "integration" test this plugin while developing.
 
 ### Organize Imports
 
@@ -51,4 +51,4 @@ sbt scalafmtAll
 
 4. Publish plugin `sbt publish`
 
-5. Tag version `git tag -a v1.1.0 -m "Release version 1.1.0."`
+5. Tag version `git tag -a v1.2.0 -m "Release version 1.2.0."`

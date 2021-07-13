@@ -59,7 +59,6 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Wdead-code",                       // Warn when dead code is identified.
     "-Wextra-implicit",                  // Warn when more than one implicit parameter section is defined.
     "-Wnumeric-widen",                   // Warn when numerics are widened.
-    "-Wunused:imports",                  // Warn if an import selector is not referenced.
     "-Wunused:locals",                   // Warn if a local definition is unused.
     "-Wunused:params",                   // Warn if a value parameter is unused.
     "-Wunused:patvars",                  // Warn if a variable bound in a pattern is unused.
@@ -73,9 +72,17 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Xlint:by-name-right-associative",
     "-Xlint:unsound-match",
     "-Ypartial-unification",
+    "-Ywarn-extra-implicit",
     "-Ywarn-infer-any",
     "-Ywarn-nullary-override",
-    "-Ywarn-nullary-unit"
+    "-Ywarn-nullary-unit",
+    "-Ywarn-unused:implicits",
+    "-Ywarn-unused:imports",
+    "-Ywarn-unused:locals",
+    "-Ywarn-unused:params",
+    "-Ywarn-unused:patvars",
+    "-Ywarn-unused:privates",
+    "-Ywarn-value-discard"
   )
 
   private val scalaV2_13_0_compilerOptions = {
@@ -111,6 +118,54 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV2_13_4_compilerOptions
       .++(scalaV2_13_6_addedCompilerOptions)
   }
+
+  private val scalaV3_0_0_removedCompilerOptions = Seq(
+    "-explaintypes",                  // Renamed to '-explain-type'.
+    "-Wdead-code",
+    "-Wextra-implicit",
+    "-Wnumeric-widen",
+    "-Wunused:imports",
+    "-Wunused:locals",
+    "-Wunused:params",
+    "-Wunused:patvars",
+    "-Wunused:privates",
+    "-Wvalue-discard",
+    "-Vimplicits",
+    "-Vtype-diffs",
+    "-Xcheckinit",                    // Renamed to '-Xcheck-init'.
+    "-Xlint:adapted-args",
+    "-Xlint:constant",
+    "-Xlint:delayedinit-select",
+    "-Xlint:deprecation",             // Renamed to '-deprecation'.
+    "-Xlint:doc-detached",
+    "-Xlint:inaccessible",
+    "-Xlint:infer-any",
+    "-Xlint:missing-interpolator",
+    "-Xlint:nullary-unit",
+    "-Xlint:option-implicit",
+    "-Xlint:package-object-classes",
+    "-Xlint:poly-implicit-overload",
+    "-Xlint:private-shadow",
+    "-Xlint:stars-align",
+    "-Xlint:strict-unsealed-patmat",
+    "-Xlint:type-parameter-shadow",
+    "-Ywarn-dead-code",
+    "-Ywarn-numeric-widen"
+  )
+
+  private val scalaV3_0_0_addedCompilerOptions = Seq(
+    "-deprecation",    // Emit warning and location for usages of deprecated APIs. Renamed from '-Xlint:deprecation'.
+    "-explain",        // Explain errors in more detail.
+    "-explain-types",  // Explain type errors in more detail. Renamed from '-explaintypes'.
+    "-print-lines",    // Show source code line numbers.
+    "-Ysafe-init"      // Wrap field accessors to throw an exception on uninitialized access. Rename from '-Xcheckinit'.
+  )
+
+  private val scalaV3_0_0_compilerOptions = {
+    scalaV2_13_6_compilerOptions
+      .diff(scalaV3_0_0_removedCompilerOptions)
+      .++(scalaV3_0_0_addedCompilerOptions)
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -125,6 +180,9 @@ object ScalaCompilerOptions extends AutoPlugin {
   private def compilerOptionsForScalaVersion(version: String): Seq[String] = {
 
     version match {
+      case "3.0.0" =>
+        scalaV3_0_0_compilerOptions
+
       case "2.13.6" =>
         scalaV2_13_6_compilerOptions
 

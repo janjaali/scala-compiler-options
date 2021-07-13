@@ -33,6 +33,14 @@ Organize imports by using [liancheng/scalafix-organize-imports](https://github.c
 sbt scalaFixAll
 ```
 
+### Format
+
+Format source code by using [scalameta/scalafmt](https://github.com/scalameta/scalafmt):
+
+```shell
+sbt scalafmtAll
+```
+
 ## Publish
 
 1. Update [CHANGELOG](./CHANGELOG.md)

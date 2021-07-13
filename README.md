@@ -10,6 +10,17 @@ Add this plugin to your project:
 addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.1.0")
 ```
 
+## Supported Scala versions
+
+* `3.0.0`
+* `2.13.6`
+* `2.13.5`
+* `2.13.4`
+* `2.13.3`
+* `2.13.2`
+* `2.13.1`
+* `2.13.0`
+
 ## Development
 
 This repository contains two basic test projects in [./test](./test), one for Scala 2.12.x and one for 2.13.x, that could be used to "live" test this plugin while developing.

@@ -2,7 +2,7 @@ ThisBuild / organization := "com.github.janjaali"
 
 ThisBuild / versionScheme := Some("semver-spec")
 
-ThisBuild / version := "1.1.0"
+ThisBuild / version := "1.2.0"
 
 ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")
@@ -81,6 +81,13 @@ ThisBuild / publishMavenStyle := true
 ThisBuild / credentials += publishSettings.credentials
 
 ThisBuild / publishTo := publishSettings.publishTo
+
+ThisBuild / scalafixDependencies += {
+  "com.github.liancheng" %% "organize-imports" % "0.5.0"
+}
+
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
 lazy val plugin = (project in file("plugin"))
   .enablePlugins(SbtPlugin)

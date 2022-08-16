@@ -1,6 +1,7 @@
 package com.github.janjaali.sbt.plugins
 
 import sbt.Keys.{scalaVersion, scalacOptions}
+import sbt.util.Logger
 import sbt.{AllRequirements, AutoPlugin, Def, PluginTrigger}
 
 object ScalaCompilerOptions extends AutoPlugin {
@@ -173,13 +174,19 @@ object ScalaCompilerOptions extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] = {
 
     Seq(
-      scalacOptions ++= compilerOptionsForScalaVersion(scalaVersion.value)
+      scalacOptions ++= compilerOptionsForScalaVersion(
+        scalaVersion = scalaVersion.value,
+        logger = sbt.Keys.streams.value.log
+      )
     )
   }
 
-  private def compilerOptionsForScalaVersion(version: String): Seq[String] = {
+  private def compilerOptionsForScalaVersion(
+      scalaVersion: String,
+      logger: Logger
+  ): Seq[String] = {
 
-    version match {
+    scalaVersion match {
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
 
@@ -196,8 +203,8 @@ object ScalaCompilerOptions extends AutoPlugin {
         scalaV2_13_0_compilerOptions
 
       case _ =>
-        println(
-          s"scala-compiler-options: Scala version '$version' not supported."
+        logger.warn(
+          s"scala-compiler-options: Scala version '$scalaVersion' not supported."
         )
         Nil
     }

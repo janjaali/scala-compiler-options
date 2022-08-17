@@ -86,7 +86,7 @@ ThisBuild / credentials += publishSettings.credentials
 ThisBuild / publishTo := publishSettings.publishTo
 
 ThisBuild / scalafixDependencies += {
-  "com.github.liancheng" %% "organize-imports" % "0.5.0"
+  "com.github.liancheng" %% "organize-imports" % "0.6.0"
 }
 
 ThisBuild / semanticdbEnabled := true

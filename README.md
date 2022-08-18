@@ -13,13 +13,7 @@ addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.3.0")
 ## Supported Scala versions
 
 * `3.0.x`
-* `2.13.6`
-* `2.13.5`
-* `2.13.4`
-* `2.13.3`
-* `2.13.2`
-* `2.13.1`
-* `2.13.0`
+* `2.13.0` -> `2.13.8`
 
 ## Development
 

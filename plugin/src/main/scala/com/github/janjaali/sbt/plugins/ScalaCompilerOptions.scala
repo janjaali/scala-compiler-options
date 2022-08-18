@@ -174,6 +174,14 @@ object ScalaCompilerOptions extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] = {
 
     Seq(
+      autoImport.printCompilerOptions := {
+        val compilerOption = compilerOptionsForScalaVersion(
+          scalaVersion = scalaVersion.value,
+          logger = sbt.Keys.streams.value.log
+        )
+
+        println(compilerOption.mkString("[\n", ",\n", "\n]"))
+      },
       scalacOptions ++= compilerOptionsForScalaVersion(
         scalaVersion = scalaVersion.value,
         logger = sbt.Keys.streams.value.log
@@ -208,5 +216,12 @@ object ScalaCompilerOptions extends AutoPlugin {
         )
         Nil
     }
+  }
+
+  object autoImport {
+
+    val printCompilerOptions = sbt.inputKey[Unit](
+      "Prints out used compiler options."
+    )
   }
 }

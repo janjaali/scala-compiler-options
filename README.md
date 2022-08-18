@@ -1,13 +1,19 @@
 # scala-compiler-options
 
-SBT plugin that setup necessary, opinionated list of, scala compiler options for your build.
+SBT plugin that adds necessary compiler options to your SBT project *(Disclaimer: the list of added compiler options is highly opinionated)*.
 
 ## Usage
 
-Add this plugin to your project:
+Add this plugin to your project and the compiler options will be added automatically to your project:
 
 ```sbt
 addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.3.0")
+```
+
+You can print out the compiler options that are added to your project:
+
+```shell
+sbt printCompilerOptions
 ```
 
 ## Supported Scala versions

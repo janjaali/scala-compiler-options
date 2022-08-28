@@ -18,6 +18,7 @@ sbt printCompilerOptions
 
 ## Supported Scala versions
 
+* `3.1.x`
 * `3.0.x`
 * `2.13.0` -> `2.13.8`
 

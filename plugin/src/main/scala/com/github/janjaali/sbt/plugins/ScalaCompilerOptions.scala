@@ -167,6 +167,10 @@ object ScalaCompilerOptions extends AutoPlugin {
       .diff(scalaV3_0_0_removedCompilerOptions)
       .++(scalaV3_0_0_addedCompilerOptions)
   }
+
+  private val scalaV3_1_0_compilerOptions = {
+    scalaV3_0_0_compilerOptions :+ "-Wconf:any:verbose"
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -195,6 +199,9 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
+      case version if version.startsWith("3.1.") =>
+        scalaV3_1_0_compilerOptions
+
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
 

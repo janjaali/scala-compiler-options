@@ -44,9 +44,9 @@ sbt scalafmtAll
 
 ## Publish
 
-1. Update plugin version references in this README and `plugins.sbt` files
+1. Update plugin version references in `build.sbt` and this README
 
-2. Merge changes back into main branch
+2. Git commit and push latest changes (including version bump)
 
 3. Publish plugin `sbt publish`
 

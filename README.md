@@ -51,3 +51,5 @@ sbt scalafmtAll
 3. Publish plugin `sbt publish`
 
 4. Tag version `git tag -a v1.3.1 -m "Release version 1.3.1."`
+
+5. Create new GitHub release from tag

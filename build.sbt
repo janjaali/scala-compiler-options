@@ -2,7 +2,7 @@ ThisBuild / organization := "com.github.janjaali"
 
 ThisBuild / versionScheme := Some("semver-spec")
 
-ThisBuild / version := "1.3.0-SNAPSHOT"
+ThisBuild / version := "1.3.1"
 
 ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")
@@ -25,7 +25,7 @@ ThisBuild / developers := List(
   Developer(
     id = "janjaali",
     name = "janjaali",
-    email = "",
+    email = "janjaali@outlook.com",
     url = url("http://github.com/janjaali")
   )
 )

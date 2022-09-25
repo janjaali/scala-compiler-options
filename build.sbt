@@ -8,7 +8,7 @@ ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")
 )
 
-ThisBuild / scalaVersion := "2.12.16"
+ThisBuild / scalaVersion := "2.12.17"
 
 ThisBuild / homepage := Some(
   url("https://github.com/janjaali/scala-compiler-options")

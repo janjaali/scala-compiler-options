@@ -120,6 +120,15 @@ object ScalaCompilerOptions extends AutoPlugin {
       .++(scalaV2_13_6_addedCompilerOptions)
   }
 
+  private val scalaV2_13_9_addedCompilerOptions = Seq(
+    "-Wnonunit-statement"
+  )
+
+  private val scalaV2_13_9_compilerOptions = {
+    scalaV2_13_6_compilerOptions
+      .++(scalaV2_13_9_addedCompilerOptions)
+  }
+
   private val scalaV3_0_0_removedCompilerOptions = Seq(
     "-explaintypes",                  // Renamed to '-explain-type'.
     "-Wdead-code",
@@ -199,11 +208,15 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
-      case version if version.startsWith("3.1.") =>
+      case version if version.startsWith("3.1.") ||
+                      version.startsWith("3.2.") =>
         scalaV3_1_0_compilerOptions
 
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
+
+      case "2.13.9" =>
+        scalaV2_13_9_compilerOptions
 
       case "2.13.6" | "2.13.7" | "2.13.8" =>
         scalaV2_13_6_compilerOptions

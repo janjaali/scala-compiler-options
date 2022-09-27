@@ -7,7 +7,7 @@ SBT plugin that adds necessary compiler options to your SBT project *(Disclaimer
 Add this plugin to your project and the compiler options will be added automatically to your project:
 
 ```sbt
-addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.3.1")
+addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.4.0")
 ```
 
 You can print out the compiler options that are added to your project:
@@ -51,6 +51,6 @@ sbt scalafmtAll
 
 3. Publish plugin `sbt publish`
 
-4. Tag version `git tag -a v1.3.1 -m "Release version 1.3.1."`
+4. Tag version `git tag -a v1.4.0 -m "Release version 1.4.0."`
 
 5. Create new GitHub release from tag

@@ -215,7 +215,7 @@ object ScalaCompilerOptions extends AutoPlugin {
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
 
-      case "2.13.9" =>
+      case "2.13.9" | "2.13.10" =>
         scalaV2_13_9_compilerOptions
 
       case "2.13.6" | "2.13.7" | "2.13.8" =>

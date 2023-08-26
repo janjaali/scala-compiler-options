@@ -180,6 +180,16 @@ object ScalaCompilerOptions extends AutoPlugin {
   private val scalaV3_1_0_compilerOptions = {
     scalaV3_0_0_compilerOptions :+ "-Wconf:any:verbose"
   }
+
+  private val scalaV3_3_0_compilerOptions = {
+    scalaV3_1_0_compilerOptions ++ List(
+      "-Wunused:imports",   // Lints for unused imports.
+      "-Wunused:privates",  // Lints for unused private members.
+      "-Wunused:locals",    // Lints for unused local definitions.
+      "-Wunused:explicits", // Lints for unused explicit parameters.
+      "-Wunused:implicits", // Lints for unused implicit parameters.
+    )
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -208,8 +218,12 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
-      case version if version.startsWith("3.1.") ||
-                      version.startsWith("3.2.") =>
+      case version if version.startsWith("3.3.") =>
+        scalaV3_3_0_compilerOptions
+
+      case version
+          if version.startsWith("3.1.") ||
+            version.startsWith("3.2.") =>
         scalaV3_1_0_compilerOptions
 
       case version if version.startsWith("3.0.") =>

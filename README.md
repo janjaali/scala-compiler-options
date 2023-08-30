@@ -50,7 +50,7 @@ sbt scalafmtAll
 
 2. Git commit and push latest changes (including version bump)
 
-3. Publish plugin `sbt publish`
+3. Publish plugin `sbt publishSigned`
 
 4. Tag version `git tag -a v1.4.0 -m "Release version 1.4.0."`
 

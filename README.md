@@ -22,7 +22,7 @@ sbt printCompilerOptions
 * `3.2.x`
 * `3.1.x`
 * `3.0.x`
-* `2.13.0` -> `2.13.11`
+* `2.13.0` -> `2.13.12`
 
 ## Development
 

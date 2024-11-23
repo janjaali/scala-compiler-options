@@ -2,7 +2,7 @@ ThisBuild / organization := "com.github.janjaali"
 
 ThisBuild / versionScheme := Some("semver-spec")
 
-ThisBuild / version := "1.6.0"
+ThisBuild / version := "latest"
 
 ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")

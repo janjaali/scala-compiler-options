@@ -9,14 +9,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
           cache: sbt
 
-      - name: Compile and Test
+      - name: Compile
         run: sbt compile
+
+      # Will publish the plugin locally with version identifier set to 'latest'.
+      # This enables the following test step to use the latest version of the 
+      # plugin in this CI run.
+      - name: Publish plugin locally
+        run: sbt publishLocal
+
+      # Compiles all subdirectories in the test directory to verify that they
+      # compile with latest plugin version.
+      - name: Test
+        run: |
+          for dir in test/*/; do
+            (cd "$dir" && sbt compile)
+          done

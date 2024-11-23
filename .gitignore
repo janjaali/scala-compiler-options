@@ -4,7 +4,12 @@ target
 
 # VS Code
 .vscode
+
+# Metals
 .bloop
 .metals
 metals.sbt
 project/project
+
+# PowerShell
+/PowerShell *

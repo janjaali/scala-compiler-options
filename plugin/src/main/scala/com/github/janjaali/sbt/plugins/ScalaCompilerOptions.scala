@@ -129,6 +129,19 @@ object ScalaCompilerOptions extends AutoPlugin {
       .++(scalaV2_13_9_addedCompilerOptions)
   }
 
+  private val scalaV2_13_11_addedCompilerOptions = Seq(
+    "-Xlint:arg-discard",       // Warn about discarded adapted arguments.
+    "-Xlint:int-div-to-float",  // Warn when an integer division is converted 
+                                // (widened) to floating point: `(someInt / 2): Double`.
+    "-Xlint:numeric-methods",   // Warn for dubious-looking numeric methods: `42.isNaN()`.
+    "-Xlint:universal-methods", // Warn for dubious-looking universal methods: `someUnit.asInstanceOf[Int]`.
+  )
+
+  private val scalaV2_13_11_compilerOptions = {
+    scalaV2_13_9_compilerOptions
+    .++(scalaV2_13_11_addedCompilerOptions)
+  }
+
   private val scalaV3_0_0_removedCompilerOptions = Seq(
     "-explaintypes",                  // Renamed to '-explain-type'.
     "-Wdead-code",
@@ -228,6 +241,9 @@ object ScalaCompilerOptions extends AutoPlugin {
 
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
+
+      case "2.13.11" =>
+        scalaV2_13_11_compilerOptions
 
       case "2.13.9" | "2.13.10" =>
         scalaV2_13_9_compilerOptions

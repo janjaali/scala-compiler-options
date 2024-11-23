@@ -142,6 +142,19 @@ object ScalaCompilerOptions extends AutoPlugin {
     .++(scalaV2_13_11_addedCompilerOptions)
   }
 
+  private val scalaV2_13_13_addedCompilerOptions = Seq(
+    "-Xlint:named-booleans", // Warn if a unnamed boolean parameter is used in a 
+                             // method call.
+    "-Xlint:pattern-shadow"  // Warn when a pattern shadows a variable that might
+                             // have been intended to match a value in scope 
+                             // using backticks.
+  )
+
+  private val scalaV2_13_13_compilerOptions = {
+    scalaV2_13_11_compilerOptions
+      .++(scalaV2_13_13_addedCompilerOptions)
+  }
+
   private val scalaV3_0_0_removedCompilerOptions = Seq(
     "-explaintypes",                  // Renamed to '-explain-type'.
     "-Wdead-code",
@@ -241,6 +254,9 @@ object ScalaCompilerOptions extends AutoPlugin {
 
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
+
+      case "2.13.13" =>
+        scalaV2_13_13_compilerOptions
 
       case "2.13.11" | "2.13.12" =>
         scalaV2_13_11_compilerOptions

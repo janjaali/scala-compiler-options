@@ -222,14 +222,19 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV3_0_0_compilerOptions :+ "-Wconf:any:verbose"
   }
 
+  private val scalaV3_3_3_addedCompilerOptions = List(
+    "-Wvalue-discard",    // Warn when non-Unit expression results are unused.
+    "-Wunused:imports",   // Lints for unused imports.
+    "-Wunused:params",    // Lints for unused parameters.
+    "-Wunused:privates",  // Lints for unused private members.
+    "-Wunused:locals",    // Lints for unused local definitions.
+    "-Wunused:explicits", // Lints for unused explicit parameters.
+    "-Wunused:implicits", // Lints for unused implicit parameters.
+  )
+
   private val scalaV3_3_0_compilerOptions = {
-    scalaV3_1_0_compilerOptions ++ List(
-      "-Wunused:imports",   // Lints for unused imports.
-      "-Wunused:privates",  // Lints for unused private members.
-      "-Wunused:locals",    // Lints for unused local definitions.
-      "-Wunused:explicits", // Lints for unused explicit parameters.
-      "-Wunused:implicits", // Lints for unused implicit parameters.
-    )
+    scalaV3_1_0_compilerOptions ++
+      scalaV3_3_3_addedCompilerOptions
   }
   // format: on
 

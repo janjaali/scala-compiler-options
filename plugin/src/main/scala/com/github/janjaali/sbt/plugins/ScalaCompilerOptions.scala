@@ -236,6 +236,15 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV3_1_0_compilerOptions ++
       scalaV3_3_3_addedCompilerOptions
   }
+
+  private val scalaV3_3_1_addedCompilerOptions = List(
+    "-Wnonunit-statement" // Warn when block statements are non-Unit expressions.
+  )
+
+  private val scalaV3_3_1_compilerOptions = {
+    scalaV3_3_0_compilerOptions ++
+      scalaV3_3_1_addedCompilerOptions
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -264,8 +273,11 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
-      case version if version.startsWith("3.3.") =>
+      case "3.3.0" =>
         scalaV3_3_0_compilerOptions
+
+      case version if version.startsWith("3.3.") =>
+        scalaV3_3_1_compilerOptions
 
       case version
           if version.startsWith("3.1.") ||

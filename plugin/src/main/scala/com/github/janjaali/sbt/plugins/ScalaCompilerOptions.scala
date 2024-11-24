@@ -245,6 +245,18 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV3_3_0_compilerOptions ++
       scalaV3_3_1_addedCompilerOptions
   }
+
+  private val scalaV3_4_0_addedCompilerOptions = Seq(
+    "-Xlint:private-shadow",       // A private field (or class parameter) 
+                                   // shadows a superclass field.
+    "-Xlint:type-parameter-shadow" // A local type parameter shadows a type 
+                                   // already in scope.
+  )
+
+  private val scalaV3_4_0_compilerOptions = {
+    scalaV3_3_1_compilerOptions ++
+     scalaV3_4_0_addedCompilerOptions
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -273,6 +285,9 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
+      case "3.4.0" =>
+        scalaV3_4_0_compilerOptions
+
       case "3.3.0" =>
         scalaV3_3_0_compilerOptions
 

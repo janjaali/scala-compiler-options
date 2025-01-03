@@ -317,7 +317,8 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
-      case version if version.startsWith("3.5.") =>
+      case version
+          if version.startsWith("3.5.") || version.startsWith("3.6.") =>
         scalaV3_5_0_compilerOptions
 
       case "3.4.0" =>
@@ -333,8 +334,7 @@ object ScalaCompilerOptions extends AutoPlugin {
         scalaV3_3_1_compilerOptions
 
       case version
-          if version.startsWith("3.1.") ||
-            version.startsWith("3.2.") =>
+          if version.startsWith("3.1.") || version.startsWith("3.2.") =>
         scalaV3_1_0_compilerOptions
 
       case version if version.startsWith("3.0.") =>

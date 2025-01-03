@@ -257,6 +257,23 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV3_3_1_compilerOptions ++
      scalaV3_4_0_addedCompilerOptions
   }
+
+  private val scalaV3_4_1_removedCompilerOptions = List(
+    "-Xlint:private-shadow",       // Use '-Wshadow' instead.
+    "-Xlint:type-parameter-shadow" // Use '-Wshadow' instead.
+  )
+
+  private val scalaV3_4_1_addedCompilerOptions = List(
+    "-Wshadow:all" // Warns if a private field (or class parameter) shadows a 
+                   // superclass field or a local type parameter shadows a type 
+                   // already in scope.
+  )
+
+  private val scalaV3_4_1_compilerOptions = {
+    scalaV3_4_0_compilerOptions
+      .diff(scalaV3_4_1_removedCompilerOptions)
+      .++(scalaV3_4_1_addedCompilerOptions)
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -287,6 +304,9 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaVersion match {
       case "3.4.0" =>
         scalaV3_4_0_compilerOptions
+
+      case version if version.startsWith("3.4.") =>
+        scalaV3_4_1_compilerOptions
 
       case "3.3.0" =>
         scalaV3_3_0_compilerOptions

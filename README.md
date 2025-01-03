@@ -7,7 +7,7 @@ SBT plugin that adds necessary compiler options to your SBT project *(Disclaimer
 Add this plugin to your project and the compiler options will be added automatically to your project:
 
 ```sbt
-addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.6.0")
+addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.8.0")
 ```
 
 You can print out the compiler options that are added to your project:
@@ -43,12 +43,12 @@ sbt scalafmtAll
 
 ## Publish
 
-1. Update plugin version references in `build.sbt` and this README
+1. Update plugin version in `build.sbt` and this README file.
 
-2. Git commit and push latest changes (including version bump)
+2. Publish plugin `sbt publishSigned`.
 
-3. Publish plugin `sbt publishSigned`
+3. Tag version `git tag -a v1.8.0 -m "Release version 1.8.0."`.
 
-4. Tag version `git tag -a v1.4.0 -m "Release version 1.4.0."`
+4. Push tags `git push --tags`.
 
-5. Create new GitHub release from tag
+5. Create new GitHub release from tag.

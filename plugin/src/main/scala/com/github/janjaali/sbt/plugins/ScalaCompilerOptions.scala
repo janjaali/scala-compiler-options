@@ -274,6 +274,21 @@ object ScalaCompilerOptions extends AutoPlugin {
       .diff(scalaV3_4_1_removedCompilerOptions)
       .++(scalaV3_4_1_addedCompilerOptions)
   }
+
+  private val scalaV3_5_0_removedCompilerOptions = List(
+    "-Ysafe-init" // Use '-Wsafe-init' instead.
+  )
+
+  private val scalaV3_5_0_addedCompilerOptions = List(
+    "-Wsafe-init" // Wrap field accessors to throw an exception on uninitialized access.
+  )
+
+  private val scalaV3_5_0_compilerOptions = {
+
+    scalaV3_4_1_compilerOptions
+      .diff(scalaV3_5_0_removedCompilerOptions)
+      .++(scalaV3_5_0_addedCompilerOptions)
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -302,6 +317,9 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
+      case version if version.startsWith("3.5.") =>
+        scalaV3_5_0_compilerOptions
+
       case "3.4.0" =>
         scalaV3_4_0_compilerOptions
 

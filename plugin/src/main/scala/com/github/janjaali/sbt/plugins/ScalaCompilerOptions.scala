@@ -257,6 +257,38 @@ object ScalaCompilerOptions extends AutoPlugin {
     scalaV3_3_1_compilerOptions ++
      scalaV3_4_0_addedCompilerOptions
   }
+
+  private val scalaV3_4_1_removedCompilerOptions = List(
+    "-Xlint:private-shadow",       // Use '-Wshadow' instead.
+    "-Xlint:type-parameter-shadow" // Use '-Wshadow' instead.
+  )
+
+  private val scalaV3_4_1_addedCompilerOptions = List(
+    "-Wshadow:all" // Warns if a private field (or class parameter) shadows a 
+                   // superclass field or a local type parameter shadows a type 
+                   // already in scope.
+  )
+
+  private val scalaV3_4_1_compilerOptions = {
+    scalaV3_4_0_compilerOptions
+      .diff(scalaV3_4_1_removedCompilerOptions)
+      .++(scalaV3_4_1_addedCompilerOptions)
+  }
+
+  private val scalaV3_5_0_removedCompilerOptions = List(
+    "-Ysafe-init" // Use '-Wsafe-init' instead.
+  )
+
+  private val scalaV3_5_0_addedCompilerOptions = List(
+    "-Wsafe-init" // Wrap field accessors to throw an exception on uninitialized access.
+  )
+
+  private val scalaV3_5_0_compilerOptions = {
+
+    scalaV3_4_1_compilerOptions
+      .diff(scalaV3_5_0_removedCompilerOptions)
+      .++(scalaV3_5_0_addedCompilerOptions)
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -285,8 +317,15 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
+      case version
+          if version.startsWith("3.5.") || version.startsWith("3.6.") =>
+        scalaV3_5_0_compilerOptions
+
       case "3.4.0" =>
         scalaV3_4_0_compilerOptions
+
+      case version if version.startsWith("3.4.") =>
+        scalaV3_4_1_compilerOptions
 
       case "3.3.0" =>
         scalaV3_3_0_compilerOptions
@@ -295,8 +334,7 @@ object ScalaCompilerOptions extends AutoPlugin {
         scalaV3_3_1_compilerOptions
 
       case version
-          if version.startsWith("3.1.") ||
-            version.startsWith("3.2.") =>
+          if version.startsWith("3.1.") || version.startsWith("3.2.") =>
         scalaV3_1_0_compilerOptions
 
       case version if version.startsWith("3.0.") =>

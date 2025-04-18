@@ -1,1 +1,1 @@
-scalaVersion := "3.6.3"
+scalaVersion := "3.6.4"

@@ -289,6 +289,14 @@ object ScalaCompilerOptions extends AutoPlugin {
       .diff(scalaV3_5_0_removedCompilerOptions)
       .++(scalaV3_5_0_addedCompilerOptions)
   }
+
+  private val scalaV3_7_0_addedCompilerOptions = List(
+    "-Wunused:patvars" // Lints for unused pattern variables.
+  )
+
+  private val scalaV3_7_0_compilerOptions = {
+    scalaV3_5_0_compilerOptions ++ scalaV3_7_0_addedCompilerOptions
+  }
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -317,6 +325,9 @@ object ScalaCompilerOptions extends AutoPlugin {
   ): Seq[String] = {
 
     scalaVersion match {
+      case version if version.startsWith("3.7.") =>
+        scalaV3_7_0_compilerOptions
+
       case version
           if version.startsWith("3.5.") || version.startsWith("3.6.") =>
         scalaV3_5_0_compilerOptions

@@ -7,7 +7,7 @@ SBT plugin that adds necessary compiler options to your SBT project *(Disclaimer
 Add this plugin to your project and the compiler options will be added automatically to your project:
 
 ```sbt
-addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.8.0")
+addSbtPlugin("com.github.janjaali" % "scala-compiler-options" % "1.9.0")
 ```
 
 You can print out the compiler options that are added to your project:
@@ -18,7 +18,7 @@ sbt printCompilerOptions
 
 ## Supported Scala versions
 
-* `3.0.x` -> `3.6.x`
+* `3.0.x` -> `3.7.x`
 * `2.13.0` -> `2.13.15`
 
 ## Development

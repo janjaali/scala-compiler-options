@@ -85,7 +85,7 @@ ThisBuild / publishMavenStyle := true
 
 ThisBuild / credentials += publishSettings.credentials
 
-ThisBuild / publishTo := publishSettings.publishTo
+ThisBuild / publishTo := localStaging.value
 
 ThisBuild / scalafixDependencies += {
   "com.github.liancheng" %% "organize-imports" % "0.6.0"

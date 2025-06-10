@@ -45,10 +45,14 @@ sbt scalafmtAll
 
 1. Update plugin version in `build.sbt` and this README file.
 
-2. Publish plugin `sbt publishSigned`.
+2. Stage artifact `sbt publishSigned`.
 
-3. Tag version `git tag -a v1.8.0 -m "Release version 1.8.0."`.
+3. Upload staged artifact `sbt sonaUpload`
 
-4. Push tags `git push --tags`.
+4. Publish uploaded artifact <https://central.sonatype.com/publishing/deployments>.
 
-5. Create new GitHub release from tag.
+5. Tag version `git tag -a v1.8.0 -m "Release version 1.8.0."`.
+
+6. Push tags `git push --tags`.
+
+7. Create new GitHub release from tag.

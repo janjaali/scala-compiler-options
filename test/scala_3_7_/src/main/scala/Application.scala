@@ -11,7 +11,7 @@ object Application {
 
   def main = {
 
-    // implicitBased(Config.default)     
+    // implicitBased(Config.default)
 
     // val person = Person("Alice", 30)
 

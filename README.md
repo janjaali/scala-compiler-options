@@ -30,6 +30,7 @@ sbt printCompilerOptions
   * Scala 3.7.x
   * Scala 3.8.x
   * Scala 3.9.x
+  * Scala 3.10.x
 
 ## Development
 

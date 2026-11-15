@@ -18,8 +18,18 @@ sbt printCompilerOptions
 
 ## Supported Scala versions
 
-* `3.0.x` -> `3.7.x`
-* `2.13.0` -> `2.13.15`
+* Scala 2.13.x
+* Scala 3.x
+  * Scala 3.0.x
+  * Scala 3.1.x
+  * Scala 3.2.x
+  * Scala 3.3.x
+  * Scala 3.4.x
+  * Scala 3.5.x
+  * Scala 3.6.x
+  * Scala 3.7.x
+  * Scala 3.8.x
+  * Scala 3.9.x
 
 ## Development
 

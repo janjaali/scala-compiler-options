@@ -96,9 +96,20 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Xlint:nullary-override"
   )
 
+  private val scalaV2_13_3_addedCompilerOptions = List(
+    "-Xlint:unused",
+    "-Xlint:nonlocal-return",
+    "-Xlint:implicit-not-found",
+    "-Xlint:valpattern",
+    "-Ywarn-macros:after",
+    "-Xlint:implicit-recursion",
+    "-Wconf:cat=other-match-analysis:error"
+  )
+
   private val scalaV2_13_3_compilerOptions = {
     scalaV2_13_0_compilerOptions
-      .diff(scalaV2_13_3_removedCompilerOptions)
+      .diff(scalaV2_13_3_removedCompilerOptions) ++
+      scalaV2_13_3_addedCompilerOptions
   }
 
   private val scalaV2_13_4_addedCompilerOptions = Seq(
@@ -170,7 +181,7 @@ object ScalaCompilerOptions extends AutoPlugin {
       .++(scalaV2_13_14_addedCompilerOptions)
   }
 
-  private val scalaV3_0_0_removedCompilerOptions = Seq(
+  private val scalaV3_0_0_removedCompilerOptions = List(
     "-explaintypes",                  // Renamed to '-explain-type'.
     "-Wdead-code",
     "-Wextra-implicit",
@@ -189,9 +200,12 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Xlint:delayedinit-select",
     "-Xlint:deprecation",             // Renamed to '-deprecation'.
     "-Xlint:doc-detached",
+    "-Xlint:implicit-not-found",
+    "-Xlint:implicit-recursion",
     "-Xlint:inaccessible",
     "-Xlint:infer-any",
     "-Xlint:missing-interpolator",
+    "-Xlint:nonlocal-return",
     "-Xlint:nullary-unit",
     "-Xlint:option-implicit",
     "-Xlint:package-object-classes",
@@ -200,7 +214,11 @@ object ScalaCompilerOptions extends AutoPlugin {
     "-Xlint:stars-align",
     "-Xlint:strict-unsealed-patmat",
     "-Xlint:type-parameter-shadow",
+    "-Xlint:unused",
+    "-Xlint:valpattern",
+    "-Wconf:cat=other-match-analysis:error",
     "-Ywarn-dead-code",
+    "-Ywarn-macros:after",
     "-Ywarn-numeric-widen"
   )
 
@@ -276,11 +294,13 @@ object ScalaCompilerOptions extends AutoPlugin {
   }
 
   private val scalaV3_5_0_removedCompilerOptions = List(
-    "-Ysafe-init" // Use '-Wsafe-init' instead.
+    "-Xfatal-warnings", // Use '-Werror' instead.
+    "-Ysafe-init"       // Use '-Wsafe-init' instead.
   )
 
   private val scalaV3_5_0_addedCompilerOptions = List(
-    "-Wsafe-init" // Wrap field accessors to throw an exception on uninitialized access.
+    "-Werror",     // Fail compilation if there are any warnings.
+    "-Wsafe-init"  // Wrap field accessors to throw on uninitialized access.
   )
 
   private val scalaV3_5_0_compilerOptions = {
@@ -297,6 +317,10 @@ object ScalaCompilerOptions extends AutoPlugin {
   private val scalaV3_7_0_compilerOptions = {
     scalaV3_5_0_compilerOptions ++ scalaV3_7_0_addedCompilerOptions
   }
+
+  // Scala 3.8.3 deprecates this no-op; -Werror would reject the warning.
+  private val scalaV3_8_3_compilerOptions =
+    scalaV3_7_0_compilerOptions.filterNot(_ == "-print-lines")
   // format: on
 
   override def trigger: PluginTrigger = AllRequirements
@@ -332,6 +356,9 @@ object ScalaCompilerOptions extends AutoPlugin {
           if version.startsWith("3.5.") || version.startsWith("3.6.") =>
         scalaV3_5_0_compilerOptions
 
+      case "3.8.0" | "3.8.1" | "3.8.2" =>
+        scalaV3_7_0_compilerOptions
+
       case "3.4.0" =>
         scalaV3_4_0_compilerOptions
 
@@ -350,6 +377,9 @@ object ScalaCompilerOptions extends AutoPlugin {
 
       case version if version.startsWith("3.0.") =>
         scalaV3_0_0_compilerOptions
+
+      case version if version.startsWith("3.") =>
+        scalaV3_8_3_compilerOptions
 
       case "2.13.14" | "2.13.15" =>
         scalaV2_13_14_compilerOptions
@@ -374,6 +404,9 @@ object ScalaCompilerOptions extends AutoPlugin {
 
       case "2.13.0" | "2.13.1" | "2.13.2" =>
         scalaV2_13_0_compilerOptions
+
+      case version if version.startsWith("2.13.") =>
+        scalaV2_13_14_compilerOptions
 
       case _ =>
         logger.warn(

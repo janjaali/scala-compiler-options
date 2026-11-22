@@ -22,13 +22,13 @@ jobs:
         uses: sbt/setup-sbt@v1
 
       - name: Compile
-        run: sbt compile
+        run: sbt +compile
 
       # Will publish the plugin locally with version identifier set to 'latest'.
       # This enables the following test step to use the latest version of the 
       # plugin in this CI run.
       - name: Publish plugin locally
-        run: sbt publishLocal
+        run: sbt +publishLocal
 
       # Compiles all subdirectories in the test directory to verify that they
       # compile with latest plugin version.

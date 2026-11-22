@@ -8,7 +8,9 @@ ThisBuild / licenses := Seq(
   "MIT License" -> url("https://opensource.org/licenses/MIT")
 )
 
-ThisBuild / scalaVersion := "2.12.21"
+ThisBuild / crossScalaVersions := Seq("2.12.21", "3.8.4")
+
+ThisBuild / scalaVersion := crossScalaVersions.value.head
 
 ThisBuild / homepage := Some(
   url("https://github.com/janjaali/scala-compiler-options")
@@ -31,7 +33,7 @@ ThisBuild / developers := List(
 )
 
 // format: off
-ThisBuild / scalacOptions := Seq(
+lazy val scala2_12_scalacOptions = Seq(
   "-deprecation",                     // Emit warning and location for usages of deprecated APIs.
   "-encoding",
   "utf-8",                            // Specify character encoding used by source files.
@@ -79,6 +81,24 @@ ThisBuild / scalacOptions := Seq(
 )
 // format: on
 
+lazy val scala3_scalacOptions = Seq(
+  "-deprecation",
+  "-encoding",
+  "utf-8",
+  "-feature",
+  "-unchecked",
+  // `Def.Setting[_]` is required to keep the source compatible with Scala 2.12.
+  "-Wconf:msg=is deprecated for wildcard arguments:s",
+  "-Werror"
+)
+
+ThisBuild / scalacOptions := {
+  scalaBinaryVersion.value match {
+    case "2.12" => scala2_12_scalacOptions
+    case _      => scala3_scalacOptions
+  }
+}
+
 publish / skip := true
 
 ThisBuild / publishMavenStyle := true
@@ -97,5 +117,12 @@ ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 lazy val plugin = (project in file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(
-    name := "scala-compiler-options"
+    name := "scala-compiler-options",
+    // sbt 1.x plugins are built with Scala 2.12, sbt 2.x plugins with Scala 3.
+    pluginCrossBuild / sbtVersion := {
+      scalaBinaryVersion.value match {
+        case "2.12" => "1.11.7"
+        case _      => "2.0.12"
+      }
+    }
   )

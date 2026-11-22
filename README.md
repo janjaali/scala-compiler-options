@@ -16,6 +16,11 @@ You can print out the compiler options that are added to your project:
 sbt printCompilerOptions
 ```
 
+## Supported SBT versions
+
+* SBT 1.x
+* SBT 2.0.x
+
 ## Supported Scala versions
 
 * Scala 2.13.x
@@ -34,7 +39,9 @@ sbt printCompilerOptions
 
 ## Development
 
-This repository contains test projects in [./test](./test), one for each minor Scala version. The test projects are used to "integration" test this plugin while developing.
+This repository contains test projects in [./test](./test), one for each minor Scala version. The test projects are used to "integration" test this plugin while developing. [./test/sbt_2_0](./test/sbt_2_0) verifies the plugin against SBT 2.0.x, which requires JDK 17+.
+
+The plugin is cross-built for SBT 1.x (Scala 2.12) and SBT 2.x (Scala 3). Use `sbt +compile` and `sbt +publishLocal` to build and publish both variants.
 
 ### Organize Imports
 
@@ -56,7 +63,7 @@ sbt scalafmtAll
 
 1. Update plugin version in `build.sbt` and this README file.
 
-2. Stage artifact `sbt publishSigned`.
+2. Stage artifacts for SBT 1.x and 2.x `sbt +publishSigned`.
 
 3. Upload staged artifact `sbt sonaUpload`
 

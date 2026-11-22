@@ -1,21 +1,11 @@
+// Organization
 ThisBuild / organization := "com.github.janjaali"
-
-ThisBuild / versionScheme := Some("semver-spec")
-
-ThisBuild / version := "latest"
-
-ThisBuild / licenses := Seq(
-  "MIT License" -> url("https://opensource.org/licenses/MIT")
+ThisBuild / organizationName := "janjaali"
+ThisBuild / organizationHomepage := Some(
+    url("https://github.com/janjaali")
 )
 
-ThisBuild / crossScalaVersions := Seq("2.12.21", "3.8.4")
-
-ThisBuild / scalaVersion := crossScalaVersions.value.head
-
-ThisBuild / homepage := Some(
-  url("https://github.com/janjaali/scala-compiler-options")
-)
-
+// Source Control Management Information
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/janjaali/scala-compiler-options"),
@@ -23,6 +13,7 @@ ThisBuild / scmInfo := Some(
   )
 )
 
+// Developers Information
 ThisBuild / developers := List(
   Developer(
     id = "janjaali",
@@ -31,6 +22,40 @@ ThisBuild / developers := List(
     url = url("http://github.com/janjaali")
   )
 )
+
+// Description
+ThisBuild / description := "Opinionated compiler options for Scala projects."
+
+// Homepage
+ThisBuild / homepage := Some(
+  url("https://github.com/janjaali/scala-compiler-options")
+)
+
+// License Information
+ThisBuild / licenses := Seq(
+  "MIT License" -> url("https://opensource.org/licenses/MIT")
+)
+
+// Remove all additional repository other than Maven Central from POM
+ThisBuild / pomIncludeRepository := { _ => false }
+
+// Publishing Information
+ThisBuild / credentials += publishSettings.credentials
+
+ThisBuild / publishMavenStyle := true
+ThisBuild / publishTo := {
+  val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+  if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
+  else localStaging.value
+}
+
+ThisBuild / versionScheme := Some("semver-spec")
+
+ThisBuild / version := "1.9.1"
+
+ThisBuild / crossScalaVersions := Seq("2.12.21", "3.8.4")
+
+ThisBuild / scalaVersion := crossScalaVersions.value.head
 
 // format: off
 lazy val scala2_12_scalacOptions = Seq(
@@ -98,14 +123,6 @@ ThisBuild / scalacOptions := {
     case _      => scala3_scalacOptions
   }
 }
-
-publish / skip := true
-
-ThisBuild / publishMavenStyle := true
-
-ThisBuild / credentials += publishSettings.credentials
-
-ThisBuild / publishTo := localStaging.value
 
 ThisBuild / scalafixDependencies += {
   "com.github.liancheng" %% "organize-imports" % "0.6.0"

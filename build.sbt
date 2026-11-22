@@ -51,7 +51,7 @@ ThisBuild / publishTo := {
 
 ThisBuild / versionScheme := Some("semver-spec")
 
-ThisBuild / version := "1.9.1"
+ThisBuild / version := "latest"
 
 ThisBuild / crossScalaVersions := Seq("2.12.21", "3.8.4")
 

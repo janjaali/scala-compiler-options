@@ -6,5 +6,5 @@ object publishSettings {
   // host=central.sonatype.com
   // user=***
   // password=***
-  val credentials = Credentials(Path.userHome / ".sbt" / ".credentials")
+  val credentials = Credentials(Path.userHome / ".sbt" / "credentials" / "sonatype-nexus-repository")
 }

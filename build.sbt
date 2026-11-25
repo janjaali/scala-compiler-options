@@ -2,7 +2,7 @@
 ThisBuild / organization := "com.github.janjaali"
 ThisBuild / organizationName := "janjaali"
 ThisBuild / organizationHomepage := Some(
-    url("https://github.com/janjaali")
+  url("https://github.com/janjaali")
 )
 
 // Source Control Management Information
@@ -44,7 +44,8 @@ ThisBuild / credentials += publishSettings.credentials
 
 ThisBuild / publishMavenStyle := true
 ThisBuild / publishTo := {
-  val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+  val centralSnapshots =
+    "https://central.sonatype.com/repository/maven-snapshots/"
   if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
   else localStaging.value
 }
@@ -53,7 +54,7 @@ ThisBuild / versionScheme := Some("semver-spec")
 
 ThisBuild / version := "latest"
 
-ThisBuild / crossScalaVersions := Seq("2.12.21", "3.8.4")
+ThisBuild / crossScalaVersions := Seq("2.12.21", "3.10.1")
 
 ThisBuild / scalaVersion := crossScalaVersions.value.head
 
